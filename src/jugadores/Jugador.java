@@ -52,7 +52,7 @@ public class Jugador {
         this.ParejasEncontradas++;
     }
     
-    public void reiniciar(){
+    public void reiniciar(int CantidadIntentos,int ParejasObtenidas,int PuntajeObtenido){
         this.CantidadIntentos=0;
         this.ParejasEncontradas=0;
         this.PuntajeObtenido=0;
