@@ -10,7 +10,7 @@ package jugadores;
  */
 public class ControladorJugador {
     //Atributos
-    private Jugador jugdador;
+    private Jugador jugador;
     private PanelJugador vista;
     
     //M get
@@ -28,18 +28,18 @@ public class ControladorJugador {
     //M set
     public void setVista(PanelJugador vista){
         this.vista=vista;
-        actualizarVista():
+        actualizarVista();
     }
     
     public void controladorJugador(){
-        this.jugdador = new Jugador();
+        this.jugador = new Jugador();
     }
    
     public void registrarIntemtos(boolean aciertos){
         jugador.incrementarIntentos();
-        jugador.retarPuntos(20);
+        jugador.restarPuntos(20);
         
-        if(acierto){
+        if(aciertos){
             jugador.sumarPuntos(100);
             jugador.incrementarParejas();
         }
@@ -47,7 +47,7 @@ public class ControladorJugador {
     }
     
     public void reiniciarJugador() {
-        Jugador.reiniciar();
+        jugador.reiniciar();
         actualizarVista();
     }
 

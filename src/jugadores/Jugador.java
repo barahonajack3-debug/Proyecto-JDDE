@@ -26,7 +26,7 @@ public class Jugador {
     }
     
     //Constructor
-    public Jugador(int PuntajeObtenido, int CantidadIntentos, int ParejasEncontradas) {
+    public Jugador() {
         this.PuntajeObtenido = 0;
         this.CantidadIntentos = 0;
         this.ParejasEncontradas = 0;
@@ -52,7 +52,7 @@ public class Jugador {
         this.ParejasEncontradas++;
     }
     
-    public void reiniciar(int CantidadIntentos,int ParejasObtenidas,int PuntajeObtenido){
+    public void reiniciar(){
         this.CantidadIntentos=0;
         this.ParejasEncontradas=0;
         this.PuntajeObtenido=0;
