@@ -31,7 +31,7 @@ public class ControladorJugador {
         actualizarVista();
     }
     
-    public void controladorJugador(){
+    public ControladorJugador(){
         this.jugador = new Jugador();
     }
    

@@ -32,35 +32,35 @@ public class PanelJugador extends javax.swing.JPanel {
     private void initComponents() {
 
         jCalendar1 = new com.toedter.calendar.JCalendar();
+        label1 = new javax.swing.JLabel();
+        label2 = new javax.swing.JLabel();
+        label3 = new javax.swing.JLabel();
         lbPuntajevalor = new javax.swing.JLabel();
         lbParejasvalor = new javax.swing.JLabel();
         lbIntentosvalor = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10), javax.swing.BorderFactory.createTitledBorder(null, "Estadísticas Jugador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14)))); // NOI18N
 
+        label1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        label1.setText("Puntaje  :");
+
+        label2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        label2.setText("Parejas   :");
+
+        label3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        label3.setText("Intentos :");
+
         lbPuntajevalor.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lbPuntajevalor.setText("Puntaje  :");
+        lbPuntajevalor.setForeground(new java.awt.Color(0, 102, 255));
+        lbPuntajevalor.setText("0");
 
         lbParejasvalor.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lbParejasvalor.setText("Parejas   :");
+        lbParejasvalor.setForeground(new java.awt.Color(0, 102, 255));
+        lbParejasvalor.setText("0");
 
         lbIntentosvalor.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lbIntentosvalor.setText("Intentos :");
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 102, 255));
-        jLabel4.setText("0");
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 102, 255));
-        jLabel5.setText("0");
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 102, 255));
-        jLabel6.setText("0");
+        lbIntentosvalor.setForeground(new java.awt.Color(0, 102, 255));
+        lbIntentosvalor.setText("0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -70,17 +70,17 @@ public class PanelJugador extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbIntentosvalor)
+                        .addComponent(label3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                        .addComponent(jLabel6))
+                        .addComponent(lbIntentosvalor))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbPuntajevalor)
+                        .addComponent(label1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4))
+                        .addComponent(lbPuntajevalor))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbParejasvalor)
+                        .addComponent(label2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5)))
+                        .addComponent(lbParejasvalor)))
                 .addGap(43, 43, 43))
         );
         layout.setVerticalGroup(
@@ -88,16 +88,16 @@ public class PanelJugador extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbPuntajevalor)
-                    .addComponent(jLabel4))
+                    .addComponent(label1)
+                    .addComponent(lbPuntajevalor))
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbParejasvalor)
-                    .addComponent(jLabel5))
+                    .addComponent(label2)
+                    .addComponent(lbParejasvalor))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(lbIntentosvalor))
+                    .addComponent(lbIntentosvalor)
+                    .addComponent(label3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -120,9 +120,9 @@ public class PanelJugador extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JCalendar jCalendar1;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel label1;
+    private javax.swing.JLabel label2;
+    private javax.swing.JLabel label3;
     private javax.swing.JLabel lbIntentosvalor;
     private javax.swing.JLabel lbParejasvalor;
     private javax.swing.JLabel lbPuntajevalor;
