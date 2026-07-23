@@ -35,7 +35,7 @@ public class ControladorJugador {
         this.jugador = new Jugador();
     }
    
-    public void registrarIntemtos(boolean aciertos){
+    public void registrarIntentos(boolean aciertos){
         jugador.incrementarIntentos();
         jugador.restarPuntos(20);
         
