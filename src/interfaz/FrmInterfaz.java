@@ -159,9 +159,14 @@ public class FrmInterfaz extends javax.swing.JFrame {
          Nivel nivelSeleccionado = Nivel.valueOf(seleccion.toUpperCase());
         construirTableroVisual(nivelSeleccionado);
     }//GEN-LAST:event_jComboBox1ActionPerformed
-
+    
+    //Boton reiniciar
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
+        String seleccion = (String) jComboBox1.getSelectedItem();
+        Nivel nivelActual = Nivel.valueOf(seleccion.toUpperCase());
+        construirTableroVisual(nivelActual);
+        panelJugador1.getControlador().reiniciarJugador();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     /**
