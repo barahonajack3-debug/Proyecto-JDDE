@@ -6,6 +6,9 @@ package interfaz;
 import jugadores.PanelJugador;
 import Nivel.Nivel;
 import Tablero.tablero;
+import javax.swing.JFrame;
+import juego.ControladorJuego;
+import cronometro.Cronometro;
 /**
  *
  * @author USER
@@ -20,15 +23,40 @@ public class FrmInterfaz extends javax.swing.JFrame {
      */
     public FrmInterfaz() {
         initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        juego = new ControladorJuego(panelJugador1.getControlador());
+        juego.iniciarPartida(Nivel.PRINCIPIANTE);
         construirTableroVisual(Nivel.PRINCIPIANTE);
+        iniciarCronometro();
     }
-    
+    private ControladorJuego juego;
     private javax.swing.JButton[][] botonesCartas;
-
+    private final Cronometro cronometro = new Cronometro();
+    private javax.swing.Timer timerCronometro;
+    
+     private void iniciarCronometro() {
+        if (timerCronometro != null) {
+            timerCronometro.stop();
+        }
+        cronometro.reiniciar();
+        jLabel2.setText(cronometro.getTiempoFormateado());
+        timerCronometro = new javax.swing.Timer(1000, evt -> {
+            cronometro.incrementar();
+            jLabel2.setText(cronometro.getTiempoFormateado());
+        });
+        timerCronometro.start();
+    }
+ 
+     private void detenerCronometro() {
+        if (timerCronometro != null) {
+            timerCronometro.stop();
+        }
+        cronometro.reiniciar();
+        jLabel2.setText(cronometro.getTiempoFormateado());
+    }
     private void construirTableroVisual(Nivel nivel) {
-    tablero tableroTemp = new tablero(nivel);
-    int filas = tableroTemp.getFilas();
-    int columnas = tableroTemp.getColumnas();
+    int filas = juego.getTablero().getFilas();
+    int columnas = juego.getTablero().getColumnas();
     jPanel1.removeAll();
     jPanel1.setLayout(new java.awt.GridLayout(filas, columnas, 5, 5));
     botonesCartas = new javax.swing.JButton[filas][columnas];
@@ -44,9 +72,62 @@ public class FrmInterfaz extends javax.swing.JFrame {
     }
     jPanel1.revalidate();
     jPanel1.repaint();
-}
+} private void actualizarBoton(int fila,int col){
+        cartas.Carta carta = juego.getTablero().obtenerCarta(fila, col);
+        if (carta.isVisible() || carta.isEncontrado()) {
+            botonesCartas[fila][col].setText(carta.getImagen());
+        } else {
+            botonesCartas[fila][col].setText("?");
+        }
+        if (carta.isEncontrado()) {
+            botonesCartas[fila][col].setEnabled(false);
+        }
+    }
+    
     private void manejarClickCarta(int fila, int col) {
-    System.out.println("Clic en fila " + fila + ", columna " + col);
+        final int filaPrevia = juego.getFilaSeleccionada();
+        
+        final int colPrevia = juego.getColSeleccionada();
+
+        ControladorJuego.ResultadoSeleccion resultado = juego.selecionarCarta(fila, col);
+
+        switch (resultado) {
+            case SELECCION_INVALIDA:
+                // clic repetido / carta ya encontrada: no hacemos nada
+                break;
+
+            case PRIMERA_CARTA:
+                actualizarBoton(fila, col);
+                break;
+
+            case PAREJA_ENCONTRADA:
+                actualizarBoton(filaPrevia, colPrevia);
+                actualizarBoton(fila, col);
+                break;
+
+            case JUEGO_FINALIZADO:
+                actualizarBoton(filaPrevia, colPrevia);
+                actualizarBoton(fila, col);
+                detenerCronometro();
+                javax.swing.JOptionPane.showMessageDialog(this,
+                        "¡Felicidades, encontraste todas las parejas!",
+                        "Juego finalizado", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                break;
+
+            case PAREJA_INCORRECTA:
+                actualizarBoton(filaPrevia, colPrevia);
+                actualizarBoton(fila, col);
+                // Pequeña pausa para que el jugador vea ambas cartas antes
+                // de que el modelo las oculte de nuevo.
+                javax.swing.Timer timer = new javax.swing.Timer(800, evt -> {
+                    juego.ocultarCartas(filaPrevia, colPrevia, fila, col);
+                    actualizarBoton(filaPrevia, colPrevia);
+                    actualizarBoton(fila, col);
+                });
+                timer.setRepeats(false);
+                timer.start();
+                break;
+        }
 }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,6 +150,7 @@ public class FrmInterfaz extends javax.swing.JFrame {
         jLabel1.setText("\"tablero\"");
 
         jButton5.setText("jButton5");
+        jButton5.addActionListener(this::jButton5ActionPerformed);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Juego Memoria");
@@ -157,17 +239,22 @@ public class FrmInterfaz extends javax.swing.JFrame {
         // TODO add your handling code here:private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
         String seleccion = (String) jComboBox1.getSelectedItem();
          Nivel nivelSeleccionado = Nivel.valueOf(seleccion.toUpperCase());
-        construirTableroVisual(nivelSeleccionado);
+         juego.iniciarPartida(nivelSeleccionado);
+        construirTableroVisual(Nivel.PRINCIPIANTE);
+        iniciarCronometro();
     }//GEN-LAST:event_jComboBox1ActionPerformed
     
     //Boton reiniciar
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
-        String seleccion = (String) jComboBox1.getSelectedItem();
-        Nivel nivelActual = Nivel.valueOf(seleccion.toUpperCase());
-        construirTableroVisual(nivelActual);
-        panelJugador1.getControlador().reiniciarJugador();
+        juego.reiniciarPartida();
+        construirTableroVisual(Nivel.PRINCIPIANTE);
+        iniciarCronometro();
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
