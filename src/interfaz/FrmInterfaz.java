@@ -51,9 +51,8 @@ public class FrmInterfaz extends javax.swing.JFrame {
         if (timerCronometro != null) {
             timerCronometro.stop();
         }
-        cronometro.reiniciar();
-        jLabel2.setText(cronometro.getTiempoFormateado());
     }
+     
     private void construirTableroVisual(Nivel nivel) {
     int filas = juego.getTablero().getFilas();
     int columnas = juego.getTablero().getColumnas();
@@ -83,12 +82,14 @@ public class FrmInterfaz extends javax.swing.JFrame {
             botonesCartas[fila][col].setEnabled(false);
         }
     }
+    private boolean bloqueado = false;
     
     private void manejarClickCarta(int fila, int col) {
+        if (bloqueado) {
+        return;
+        }
         final int filaPrevia = juego.getFilaSeleccionada();
-        
         final int colPrevia = juego.getColSeleccionada();
-
         ControladorJuego.ResultadoSeleccion resultado = juego.selecionarCarta(fila, col);
 
         switch (resultado) {
@@ -117,6 +118,7 @@ public class FrmInterfaz extends javax.swing.JFrame {
             case PAREJA_INCORRECTA:
                 actualizarBoton(filaPrevia, colPrevia);
                 actualizarBoton(fila, col);
+                bloqueado = true;
                 // Pequeña pausa para que el jugador vea ambas cartas antes
                 // de que el modelo las oculte de nuevo.
                 javax.swing.Timer timer = new javax.swing.Timer(800, evt -> {
@@ -240,6 +242,7 @@ public class FrmInterfaz extends javax.swing.JFrame {
         String seleccion = (String) jComboBox1.getSelectedItem();
          Nivel nivelSeleccionado = Nivel.valueOf(seleccion.toUpperCase());
          juego.iniciarPartida(nivelSeleccionado);
+         panelJugador1.getControlador().reiniciarJugador();
         construirTableroVisual(Nivel.PRINCIPIANTE);
         iniciarCronometro();
     }//GEN-LAST:event_jComboBox1ActionPerformed
