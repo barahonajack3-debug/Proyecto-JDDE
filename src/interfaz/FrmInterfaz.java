@@ -8,6 +8,7 @@ import Nivel.Nivel;
 import Tablero.tablero;
 import javax.swing.JFrame;
 import juego.ControladorJuego;
+import cronometro.Cronometro;
 /**
  *
  * @author USER
@@ -26,10 +27,33 @@ public class FrmInterfaz extends javax.swing.JFrame {
         juego = new ControladorJuego(panelJugador1.getControlador());
         juego.iniciarPartida(Nivel.PRINCIPIANTE);
         construirTableroVisual(Nivel.PRINCIPIANTE);
+        iniciarCronometro();
     }
     private ControladorJuego juego;
     private javax.swing.JButton[][] botonesCartas;
+    private final Cronometro cronometro = new Cronometro();
+    private javax.swing.Timer timerCronometro;
+    
+     private void iniciarCronometro() {
+        if (timerCronometro != null) {
+            timerCronometro.stop();
+        }
+        cronometro.reiniciar();
+        jLabel2.setText(cronometro.getTiempoFormateado());
+        timerCronometro = new javax.swing.Timer(1000, evt -> {
+            cronometro.incrementar();
+            jLabel2.setText(cronometro.getTiempoFormateado());
+        });
+        timerCronometro.start();
+    }
  
+     private void detenerCronometro() {
+        if (timerCronometro != null) {
+            timerCronometro.stop();
+        }
+        cronometro.reiniciar();
+        jLabel2.setText(cronometro.getTiempoFormateado());
+    }
     private void construirTableroVisual(Nivel nivel) {
     int filas = juego.getTablero().getFilas();
     int columnas = juego.getTablero().getColumnas();
@@ -84,6 +108,7 @@ public class FrmInterfaz extends javax.swing.JFrame {
             case JUEGO_FINALIZADO:
                 actualizarBoton(filaPrevia, colPrevia);
                 actualizarBoton(fila, col);
+                detenerCronometro();
                 javax.swing.JOptionPane.showMessageDialog(this,
                         "¡Felicidades, encontraste todas las parejas!",
                         "Juego finalizado", javax.swing.JOptionPane.INFORMATION_MESSAGE);
@@ -216,6 +241,7 @@ public class FrmInterfaz extends javax.swing.JFrame {
          Nivel nivelSeleccionado = Nivel.valueOf(seleccion.toUpperCase());
          juego.iniciarPartida(nivelSeleccionado);
         construirTableroVisual(Nivel.PRINCIPIANTE);
+        iniciarCronometro();
     }//GEN-LAST:event_jComboBox1ActionPerformed
     
     //Boton reiniciar
@@ -223,6 +249,7 @@ public class FrmInterfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
         juego.reiniciarPartida();
         construirTableroVisual(Nivel.PRINCIPIANTE);
+        iniciarCronometro();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
