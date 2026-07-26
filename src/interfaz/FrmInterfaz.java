@@ -61,7 +61,7 @@ public class FrmInterfaz extends javax.swing.JFrame {
     botonesCartas = new javax.swing.JButton[filas][columnas];
     for (int fila = 0; fila < filas; fila++) {
         for (int col = 0; col < columnas; col++) {
-            javax.swing.JButton boton = new javax.swing.JButton("reverso");
+            javax.swing.JButton boton = new javax.swing.JButton(obtenerIcono("reverso"));
             final int f = fila;
             final int c = col;
             boton.addActionListener(evt -> manejarClickCarta(f, c));
@@ -73,17 +73,18 @@ public class FrmInterfaz extends javax.swing.JFrame {
     jPanel1.repaint();    
 } 
     
-    private void actualizarBoton(int fila,int col){
-        cartas.Carta carta = juego.getTablero().obtenerCarta(fila, col);
-        if (carta.isVisible() || carta.isEncontrado()) {
-            botonesCartas[fila][col].setText(carta.getImagen());
-        } else {
-            botonesCartas[fila][col].setText("reverso");
-        }
-        if (carta.isEncontrado()) {
-            botonesCartas[fila][col].setEnabled(false);
-        }
+    private void actualizarBoton(int fila, int col){
+    cartas.Carta carta = juego.getTablero().obtenerCarta(fila, col);
+    if (carta.isVisible() || carta.isEncontrado()) {
+        botonesCartas[fila][col].setIcon(obtenerIcono(carta.getImagen()));
+    } else {
+        botonesCartas[fila][col].setIcon(obtenerIcono("reverso"));
     }
+    if (carta.isEncontrado()) {
+        botonesCartas[fila][col].setEnabled(false);
+    }
+}
+    
     private boolean bloqueado = false;
     
     private void manejarClickCarta(int fila, int col) {
@@ -96,7 +97,7 @@ public class FrmInterfaz extends javax.swing.JFrame {
 
         switch (resultado) {
             case SELECCION_INVALIDA:
-                // clic repetido / carta ya encontrada: no hacemos nada
+                // clic repet   ido / carta ya encontrada: no hacemos nada
                 break;
 
             case PRIMERA_CARTA:
@@ -136,8 +137,9 @@ public class FrmInterfaz extends javax.swing.JFrame {
 }
     //Funcion para obtener icono
     private javax.swing.ImageIcon obtenerIcono(String nombreImagen) {
-    java.net.URL ruta = getClass().getResource("/imagenes/" + nombreImagen + ".png");
+    java.net.URL ruta = getClass().getResource("/Icon/IconosM/" + nombreImagen + ".png");
     if (ruta == null) {
+        System.out.println("No se encontró: /Icon/IconosM/" + nombreImagen + ".png");
         return null;
     }
     javax.swing.ImageIcon iconoOriginal = new javax.swing.ImageIcon(ruta);
@@ -156,7 +158,6 @@ public class FrmInterfaz extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
@@ -173,23 +174,15 @@ public class FrmInterfaz extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 
-        jButton1.setText("jButton1");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(317, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(36, 36, 36))
+            .addGap(0, 379, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(91, 91, 91))
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
@@ -224,8 +217,7 @@ public class FrmInterfaz extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton10)
-                .addGap(0, 16, Short.MAX_VALUE))
+                .addComponent(jButton10))
         );
 
         panelJugador1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -237,7 +229,7 @@ public class FrmInterfaz extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelJugador1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -308,7 +300,6 @@ public class FrmInterfaz extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBox1;
