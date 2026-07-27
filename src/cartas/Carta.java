@@ -43,7 +43,7 @@ public class Carta {
         this.encontrado = false;
     }
     
-    
+ 
     public void mostrarCarta(){
         this.visible = true;
     }
@@ -54,10 +54,10 @@ public class Carta {
         } 
     }
     
-      public void marcarEncontrada(){
+    public void marcarEncontrada(){
        this.encontrado = true;
-        this.visible = true;
-        
+        this.visible = true;  
+   
     }
-    
+
 }

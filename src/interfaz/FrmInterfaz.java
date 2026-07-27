@@ -3,10 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package interfaz;
-import jugadores.PanelJugador;
 import Nivel.Nivel;
-import Tablero.tablero;
-import javax.swing.JFrame;
 import juego.ControladorJuego;
 import cronometro.Cronometro;
 /**
@@ -16,8 +13,6 @@ import cronometro.Cronometro;
 public class FrmInterfaz extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmInterfaz.class.getName());
-
-    
     /**
      * Creates new form FrmInterfaz
      */
@@ -28,12 +23,13 @@ public class FrmInterfaz extends javax.swing.JFrame {
         construirTableroVisual(Nivel.PRINCIPIANTE);
         iniciarCronometro();
     }
+    
     private ControladorJuego juego;
     private javax.swing.JButton[][] botonesCartas;
     private final Cronometro cronometro = new Cronometro();
     private javax.swing.Timer timerCronometro;
     
-     private void iniciarCronometro() {
+    private void iniciarCronometro() {
         if (timerCronometro != null) {
             timerCronometro.stop();
         }
@@ -46,7 +42,7 @@ public class FrmInterfaz extends javax.swing.JFrame {
         timerCronometro.start();
     }
  
-     private void detenerCronometro() {
+    private void detenerCronometro() {
         if (timerCronometro != null) {
             timerCronometro.stop();
         }
@@ -96,7 +92,6 @@ public class FrmInterfaz extends javax.swing.JFrame {
 
         switch (resultado) {
             case SELECCION_INVALIDA:
-                // clic repet   ido / carta ya encontrada: no hacemos nada
                 break;
 
             case PRIMERA_CARTA:
@@ -121,8 +116,7 @@ public class FrmInterfaz extends javax.swing.JFrame {
                 actualizarBoton(filaPrevia, colPrevia);
                 actualizarBoton(fila, col);
                 bloqueado = true;
-                // Pequeña pausa para que el jugador vea ambas cartas antes
-                // de que el modelo las oculte de nuevo.
+                // Pequeña pausa para que el jugador vea ambas cartas
                 javax.swing.Timer timer = new javax.swing.Timer(800, evt -> {
                     juego.ocultarCartas(filaPrevia, colPrevia, fila, col);
                     actualizarBoton(filaPrevia, colPrevia);
@@ -134,6 +128,7 @@ public class FrmInterfaz extends javax.swing.JFrame {
                 break;
         }
 }
+    
     //Funcion para obtener icono
     private javax.swing.ImageIcon obtenerIcono(String nombreImagen) {
     java.net.URL ruta = getClass().getResource("/Icon/IconosM/" + nombreImagen + ".png");
@@ -163,6 +158,7 @@ public class FrmInterfaz extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Juego Memoria");
+        setBackground(new java.awt.Color(153, 153, 153));
         setExtendedState(6);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
@@ -241,7 +237,7 @@ public class FrmInterfaz extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pack();
+        setBounds(0, 0, 647, 309);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
