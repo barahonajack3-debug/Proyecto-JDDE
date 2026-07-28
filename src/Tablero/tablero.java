@@ -12,19 +12,21 @@ import cartas.Carta;
  * @author Usuario
  */
 public class tablero {
+
     private Carta[][] cartas;
     private int filas;
     private int columnas;
     private Nivel nivel;
 
-    // ===== CONSTRUCTOR =====
-    public tablero(Nivel nivel) {
-        this.nivel = nivel;
-        definirDimensiones();
-        inicializarTablero();
+
+    public int getFilas() {
+        return filas;
     }
 
-    // ===== MÉTODOS (void) =====
+    public int getColumnas() {
+        return columnas;
+    }
+
     private void definirDimensiones() {
         switch (nivel) {
             case PRINCIPIANTE:
@@ -79,7 +81,14 @@ public class tablero {
         distribuirParejas();
     }
 
-    // ===== FUNCIONES (con retorno) =====
+
+    public tablero(Nivel nivel) {
+        this.nivel = nivel;
+        definirDimensiones();
+        inicializarTablero();
+    }
+
+    
     public Carta obtenerCarta(int fila, int col) {
         return cartas[fila][col];
     }
@@ -97,13 +106,5 @@ public class tablero {
             }
         }
         return true;
-    }
-
-    public int getFilas() {
-        return filas;
-    }
-
-    public int getColumnas() {
-        return columnas;
     }
 }
