@@ -5,7 +5,7 @@
 package interfaz;
 import Nivel.Nivel;
 import juego.ControladorJuego;
-import cronometro.Cronometro;
+import cronometro.ControladorCronometro;
 /**
  *
  * @author USER
@@ -27,8 +27,7 @@ public class FrmInterfaz extends javax.swing.JFrame {
 }
     
     private ControladorJuego juego;
-    private final Cronometro cronometro = new Cronometro();
-    private javax.swing.Timer timerCronometro;
+private final ControladorCronometro cronometro = new ControladorCronometro();    private javax.swing.Timer timerCronometro;
     private javax.swing.JButton[] botones;
     
     //Funcion para inicializar arreglo de botones
