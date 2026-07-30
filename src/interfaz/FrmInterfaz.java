@@ -31,6 +31,7 @@ public class FrmInterfaz extends javax.swing.JFrame {
     private javax.swing.Timer timerCronometro;
     private javax.swing.JButton[] botones;
     
+    //Funcion para inicializar arreglo de botones
     private void inicializarArregloBotones() {
     botones = new javax.swing.JButton[]{
         jButton1, jButton2, jButton3, jButton4, jButton5, jButton6, jButton7, jButton8,
@@ -88,19 +89,20 @@ public class FrmInterfaz extends javax.swing.JFrame {
     private void actualizarBoton(int fila, int col) {
         int columnas = juego.getTablero().getColumnas();
         int indice = fila * columnas + col;
-        cartas.Carta carta = juego.getTablero().obtenerCarta(fila, col);
-
-        if (carta.isVisible() || carta.isEncontrado()) {
-        botones[indice].setIcon(obtenerIcono(carta.getImagen()));
+        cartas.Controladorcarta carta = juego.getTablero().obtenerCarta(fila, col);
+        if (carta.estaVisible() || carta.estaEncontrada()) {
+        botones[indice].setIcon(obtenerIcono(carta.obtenerImagen()));
         }else{
         botones[indice].setIcon(obtenerIcono("reverso"));
         }
-        if (carta.isEncontrado()) {
+        if (carta.estaEncontrada()) {
         botones[indice].setEnabled(false);
         }
     }
    
+    //Se creo esta variable para saber cuando se estan comparando dos cartas incorrectas
     private boolean bloqueado = false;
+    //Funcion de manejo de cliks en cartas
     private void manejarClickCarta(int fila, int col) {
         if (bloqueado) {
         return;
@@ -123,14 +125,14 @@ public class FrmInterfaz extends javax.swing.JFrame {
                 actualizarBoton(fila, col);
                 detenerCronometro();
                 javax.swing.JOptionPane.showMessageDialog(this,
-                        "¡Felicidades, encontraste todas las parejas!",
-                        "Juego finalizado", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                "¡Felicidades, encontraste todas las parejas!",
+                "Juego finalizado",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 break;
             case PAREJA_INCORRECTA:
                 actualizarBoton(filaPrevia, colPrevia);
                 actualizarBoton(fila, col);
                 bloqueado = true;
-                // Pequeña pausa para que el jugador vea ambas cartas
+                //Pausa para que el jugador vea ambas cartas
                 javax.swing.Timer timer = new javax.swing.Timer(800, evt -> {
                     juego.ocultarCartas(filaPrevia, colPrevia, fila, col);
                     actualizarBoton(filaPrevia, colPrevia);
