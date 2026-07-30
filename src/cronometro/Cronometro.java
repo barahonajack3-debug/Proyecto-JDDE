@@ -26,7 +26,7 @@ public class Cronometro {
     public int getSegundos() {
         return segundos;
     }
-    public String getTiempoFormateado() {
+    public String getTiempo() {
         int minutos = segundos / 60;
         int segsRestantes = segundos % 60;
         return String.format("%02d:%02d", minutos, segsRestantes);

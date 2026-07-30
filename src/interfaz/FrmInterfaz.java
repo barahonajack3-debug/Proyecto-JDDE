@@ -50,10 +50,10 @@ public class FrmInterfaz extends javax.swing.JFrame {
             timerCronometro.stop();
         }
         cronometro.reiniciar();
-        jLabel2.setText(cronometro.getTiempoFormateado());
+        jLabel2.setText(cronometro.getTiempo());
         timerCronometro = new javax.swing.Timer(1000, evt -> {
             cronometro.incrementar();
-            jLabel2.setText(cronometro.getTiempoFormateado());
+            jLabel2.setText(cronometro.getTiempo());
         });
         timerCronometro.start();
     }
