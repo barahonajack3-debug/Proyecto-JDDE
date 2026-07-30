@@ -101,9 +101,6 @@
         <Component class="javax.swing.JButton" name="jButton7">
         </Component>
         <Component class="javax.swing.JButton" name="jButton8">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton8ActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton9">
         </Component>
@@ -124,9 +121,6 @@
         <Component class="javax.swing.JButton" name="jButton18">
         </Component>
         <Component class="javax.swing.JButton" name="jButton19">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton19ActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton20">
         </Component>

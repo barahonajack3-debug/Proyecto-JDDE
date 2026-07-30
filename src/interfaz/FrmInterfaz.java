@@ -27,12 +27,10 @@ public class FrmInterfaz extends javax.swing.JFrame {
 }
     
     private ControladorJuego juego;
-    private javax.swing.JButton[][] botonesCartas;
     private final Cronometro cronometro = new Cronometro();
     private javax.swing.Timer timerCronometro;
-    
     private javax.swing.JButton[] botones;
-
+    
     private void inicializarArregloBotones() {
     botones = new javax.swing.JButton[]{
         jButton1, jButton2, jButton3, jButton4, jButton5, jButton6, jButton7, jButton8,
@@ -45,7 +43,7 @@ public class FrmInterfaz extends javax.swing.JFrame {
         jButton57, jButton58, jButton59, jButton60, jButton61, jButton62, jButton63, jButton64, jButton65
     };
 }
-    
+    //Funcion para iniciar el cronometro
     private void iniciarCronometro() {
         if (timerCronometro != null) {
             timerCronometro.stop();
@@ -58,18 +56,19 @@ public class FrmInterfaz extends javax.swing.JFrame {
         });
         timerCronometro.start();
     }
- 
+    //Funcion para detener el cronometro
     private void detenerCronometro() {
         if (timerCronometro != null) {
             timerCronometro.stop();
         }
     }
-     
+    
+    //Funcion para construir tablero
     private void construirTableroVisual() {
-    int filas = juego.getTablero().getFilas();
-    int columnas = juego.getTablero().getColumnas();
-    int totalCartas = filas * columnas;
-    for (int i = 0; i < botones.length; i++) {
+        int filas = juego.getTablero().getFilas();
+        int columnas = juego.getTablero().getColumnas();
+        int totalCartas = filas * columnas;
+        for (int i = 0; i < botones.length; i++) {
         if (i < totalCartas) {
             final int fila = i / columnas;
             final int col = i % columnas;
@@ -80,29 +79,28 @@ public class FrmInterfaz extends javax.swing.JFrame {
                 botones[i].removeActionListener(listener);
             }
             botones[i].addActionListener(evt -> manejarClickCarta(fila, col));
-        } else {
+        }else{
             botones[i].setVisible(false);
         }
     }
 }
-    
-   private void actualizarBoton(int fila, int col) {
-    int columnas = juego.getTablero().getColumnas();
-    int indice = fila * columnas + col;
-    cartas.Carta carta = juego.getTablero().obtenerCarta(fila, col);
+    //Funcion para actualizar boton 
+    private void actualizarBoton(int fila, int col) {
+        int columnas = juego.getTablero().getColumnas();
+        int indice = fila * columnas + col;
+        cartas.Carta carta = juego.getTablero().obtenerCarta(fila, col);
 
-    if (carta.isVisible() || carta.isEncontrado()) {
+        if (carta.isVisible() || carta.isEncontrado()) {
         botones[indice].setIcon(obtenerIcono(carta.getImagen()));
-    } else {
+        }else{
         botones[indice].setIcon(obtenerIcono("reverso"));
-    }
-    if (carta.isEncontrado()) {
+        }
+        if (carta.isEncontrado()) {
         botones[indice].setEnabled(false);
+        }
     }
-}
-    
+   
     private boolean bloqueado = false;
-    
     private void manejarClickCarta(int fila, int col) {
         if (bloqueado) {
         return;
@@ -110,20 +108,16 @@ public class FrmInterfaz extends javax.swing.JFrame {
         final int filaPrevia = juego.getFilaSeleccionada();
         final int colPrevia = juego.getColSeleccionada();
         ControladorJuego.ResultadoSeleccion resultado = juego.selecionarCarta(fila, col);
-
         switch (resultado) {
             case SELECCION_INVALIDA:
                 break;
-
             case PRIMERA_CARTA:
                 actualizarBoton(fila, col);
                 break;
-
             case PAREJA_ENCONTRADA:
                 actualizarBoton(filaPrevia, colPrevia);
                 actualizarBoton(fila, col);
                 break;
-
             case JUEGO_FINALIZADO:
                 actualizarBoton(filaPrevia, colPrevia);
                 actualizarBoton(fila, col);
@@ -132,7 +126,6 @@ public class FrmInterfaz extends javax.swing.JFrame {
                         "¡Felicidades, encontraste todas las parejas!",
                         "Juego finalizado", javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 break;
-
             case PAREJA_INCORRECTA:
                 actualizarBoton(filaPrevia, colPrevia);
                 actualizarBoton(fila, col);
@@ -148,17 +141,13 @@ public class FrmInterfaz extends javax.swing.JFrame {
                 timer.start();
                 break;
         }
-}
+    }
     
     //Funcion para obtener icono
     private javax.swing.ImageIcon obtenerIcono(String nombreImagen) {
-    java.net.URL ruta = getClass().getResource("/Icon/IconosM/" + nombreImagen + ".png");
-    if (ruta == null) {
-        System.out.println("No se encontró: /Icon/IconosM/" + nombreImagen + ".png");
-        return null;
-    }
-    javax.swing.ImageIcon iconoOriginal = new javax.swing.ImageIcon(ruta);
-    java.awt.Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(48, 48, java.awt.Image.SCALE_SMOOTH);
+        javax.swing.ImageIcon iconoOriginal = new javax.swing.ImageIcon(
+        getClass().getResource("/Icon/IconosM/" + nombreImagen + ".png"));
+        java.awt.Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(48, 48, java.awt.Image.SCALE_SMOOTH);
     return new javax.swing.ImageIcon(imagenEscalada);
 }
     /**
@@ -255,8 +244,6 @@ public class FrmInterfaz extends javax.swing.JFrame {
         jPanel1.add(jButton5);
         jPanel1.add(jButton6);
         jPanel1.add(jButton7);
-
-        jButton8.addActionListener(this::jButton8ActionPerformed);
         jPanel1.add(jButton8);
         jPanel1.add(jButton9);
         jPanel1.add(jButton11);
@@ -267,8 +254,6 @@ public class FrmInterfaz extends javax.swing.JFrame {
         jPanel1.add(jButton16);
         jPanel1.add(jButton17);
         jPanel1.add(jButton18);
-
-        jButton19.addActionListener(this::jButton19ActionPerformed);
         jPanel1.add(jButton19);
         jPanel1.add(jButton20);
         jPanel1.add(jButton21);
@@ -383,33 +368,24 @@ public class FrmInterfaz extends javax.swing.JFrame {
 
         setBounds(0, 0, 879, 359);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    //Boton para cambiar de nivel
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
         String seleccion = (String) jComboBox1.getSelectedItem();
-         Nivel nivelSeleccionado = Nivel.valueOf(seleccion.toUpperCase());
-         juego.iniciarPartida(nivelSeleccionado);
-         panelJugador1.getControlador().reiniciarJugador();
+        Nivel nivelSeleccionado = Nivel.valueOf(seleccion.toUpperCase());
+        juego.iniciarPartida(nivelSeleccionado);
+        panelJugador1.getControlador().reiniciarJugador();
         construirTableroVisual();
         iniciarCronometro();
     }//GEN-LAST:event_jComboBox1ActionPerformed
     
-    //Boton reiniciar
+    //Boton para reiniciar
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
         juego.reiniciarPartida();
         construirTableroVisual();
         iniciarCronometro();
         bloqueado = false;
     }//GEN-LAST:event_jButton10ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton19ActionPerformed
 
     /**
      * @param args the command line arguments
