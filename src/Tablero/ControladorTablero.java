@@ -6,15 +6,15 @@ package Tablero;
 
 import Nivel.Nivel;
 import cartas.Carta;
+import cartas.Controladorcarta;
 
 /**
  *
  * @author Usuario
  */
 public class ControladorTablero {
-    
-     private tablero tableroModelo;
 
+    private tablero tableroModelo;
 
     public int getFilas() {
         return tableroModelo.getFilas();
@@ -32,12 +32,13 @@ public class ControladorTablero {
         this.tableroModelo = new tablero(nivel);
     }
 
-    public Carta obtenerCarta(int fila, int col) {
-        return tableroModelo.obtenerCarta(fila, col);
+    public Controladorcarta obtenerCarta(int fila, int col) {
+        Carta carta = tableroModelo.obtenerCarta(fila, col);
+        return new Controladorcarta(carta);
     }
 
-    public boolean compararCartas(Carta c1, Carta c2) {
-        return tableroModelo.compararCartas(c1, c2);
+    public boolean compararCartas(Controladorcarta c1, Controladorcarta c2) {
+        return c1.obtenerImagen().equals(c2.obtenerImagen());
     }
 
     public boolean juegoFinalizado() {
