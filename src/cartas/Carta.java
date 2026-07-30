@@ -38,26 +38,8 @@ public class Carta {
     }
 
     public Carta(String imagen) {
-        this.imagen = imagen;
-        this.visible = false;
-        this.encontrado = false;
-    }
-    
- 
-    public void mostrarCarta(){
-        this.visible = true;
-    }
-    
-    public void ocultar(){
-        if(this.encontrado == false){
-            this.visible = false;
-        } 
-    }
-    
-    public void marcarEncontrada(){
-       this.encontrado = true;
-        this.visible = true;  
-   
-    }
-
+    this.imagen = imagen;
+    this.visible = false;
+    this.encontrado = false;
+}
 }
